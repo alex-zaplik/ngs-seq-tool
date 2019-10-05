@@ -6,13 +6,13 @@ error_reporting(E_ALL);
 require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
+
 ?>
 <html>
 <head>
     <title>Admin Page</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-
 </head>
 <body>
     <div class="container">

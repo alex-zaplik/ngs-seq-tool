@@ -53,3 +53,13 @@ a {
 .fas:hover {
     color: white;
 }
+
+.upload-form{
+    height: 100%;
+}
+
+.upload {
+    width: 100%;
+    height: 50%;
+    background: red;
+}
