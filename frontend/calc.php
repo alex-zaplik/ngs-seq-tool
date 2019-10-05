@@ -103,17 +103,17 @@ else{
                     <hr>
                     <div class="form-group">
                         <label for="formGroupExampleInput">No error in column probability:</label>
-                        <input type="text" class="form-control" id="column" value="<?php echo $result[0]?>"disabled>
+                        <input type="text" class="form-control" id="column" value="<?php echo $result[0]*100 ."%"?>"disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">No error in matrix probability:</label>
-                        <input type="text" class="form-control" id="matrixok" value="<?php echo $result[1]?>" disabled>
+                        <input type="text" class="form-control" id="matrixok" value="<?php echo $result[1]*100 ."%"?>" disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">No error in all matrices:</label>
-                        <input type="text" class="form-control" id="matricesok" value="<?php echo $result[2]?>" disabled>
+                        <input type="text" class="form-control" id="matricesok" value="<?php echo floatval($result[2])*100 . "%"?>" disabled>
                     </div>
                       <div class="form-group">
                           <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
