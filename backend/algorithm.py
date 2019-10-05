@@ -17,36 +17,13 @@ class Algorithm:
 
     def _checkGroup(self, group):
         return None
+    
 
-
-    def group(self):
+    def _heuristic(self, left, groups=[]):
         return None
 
 
-class BruteForce(Algorithm):
-
-    def group(self):
-        return self._bruteForce(self.indecies)
-
-    
-    def _checkGroup(self, group):
-        converted = []
-
-        for sample in group:
-            txt = self.i7[sample[0]]
-            if self.i5 is not None:
-                txt += self.i5[sample[1]]
-            converted.append(txt)
-
-        # for c in converted:
-        #     print(c)
-        # print(ac.checkAlgorithm(converted))
-        # print()
-        
-        return ac.checkAlgorithm(converted)
-    
-
-    def _bruteForce(self, left, groups=[]):
+    def _group(self, left, groups=[]):
         # print("Left:", left)
         # print("Groups:", groups)
         # input("Press Enter to continue...")
@@ -66,6 +43,28 @@ class BruteForce(Algorithm):
         else:
             groups.append([])
         
+        return self._heuristic(left, groups)
+    
+
+    def group(self):
+        return self._group(self.indecies)
+
+
+class BruteForce(Algorithm):
+    
+    def _checkGroup(self, group):
+        converted = []
+
+        for sample in group:
+            txt = self.i7[sample[0]]
+            if self.i5 is not None:
+                txt += self.i5[sample[1]]
+            converted.append(txt)
+        
+        return ac.checkAlgorithm(converted)
+    
+
+    def _heuristic(self, left, groups=[]):
         curr = groups[-1]
         res = None
 
@@ -73,7 +72,7 @@ class BruteForce(Algorithm):
             new_left = left[:]
             del new_left[i]
             new_groups = groups[:-1] + [curr + [left[i]]]
-            res = self._bruteForce(new_left, new_groups)
+            res = self._group(new_left, new_groups)
 
             if res is not None:
                 groups = new_groups
@@ -81,10 +80,3 @@ class BruteForce(Algorithm):
         
         return res
 
-
-class BruteForceFour(BruteForce):
-    
-    def _checkGroup(self, group):
-        return None
-
-        # TODO: return ac.checkAlgorithm(group)
