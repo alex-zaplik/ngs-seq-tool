@@ -46,7 +46,7 @@ content = readNgsFile(args.path, columns)
 i7 = createStructure(content[I7])
 i5 = createStructure(content[I5]) if args.indexing == DOUBLE else None
 
-optim = alg.OptimizedDouble(args.runs, args.samples, len(content[I7][0]), i7, i5=i5, i5_len=len(content[I5][0]) if I5 in content else 0)
+optim = alg.OptimizedDouble(args.runs, args.samples, content, i7, i5=i5)
 res = optim.group()
 
 if res is None:

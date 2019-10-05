@@ -22,6 +22,10 @@ class Algorithm:
         return None
 
 
+    def _new_group_extra(self):
+        pass
+
+
     def _group(self, left, groups=[]):
         # print("Left:", left)
         # print("Groups:", groups)
@@ -39,8 +43,10 @@ class Algorithm:
                     return groups
 
                 groups.append([])
+                self._new_group_extra()
         else:
             groups.append([])
+            self._new_group_extra()
         
         return self._heuristic(left, groups)
     
@@ -81,71 +87,151 @@ class BruteForce(DoubleChannel):
 
 
 class OptimizedDouble(DoubleChannel):
-    def __init__(self, runs, samples, i7_len, i7, i5=None, i5_len=0):
+    def __init__(self, runs, samples, content, i7, i5=None):
         super().__init__(runs, samples, i7, i5)
 
-        self.i7_len = i7_len
-        self.i5_len = i5_len
+        self.i7_len = len(content['i7'][0])
+        self.i5_len = len(content['i5'][0]) if 'i5' in content else 0
+        self.content = content
+
     
-    def _getBestElements(self, leftMostMin, index):
-        if index < self.i7_len:
-            structure = self.i7
-        else:
-            index -= self.i7_len
-            structure = self.i5
-        
+    def _new_group_extra(self):
+        self.row_scores = [0 for _ in range(self.i7_len + self.i5_len)]
+    
+    
+    def _get_best_elements(self, leftMostMin, index, structure):    
         bestElements = structure[index]
 
-        # TODO need to return where are indexes from, i7 or i5
         if leftMostMin == 0:
+            # G or empty
             if bestElements['A'] is not None:
-                return bestElements['A']
+                bestElements = bestElements['A']
             elif bestElements['C'] is not None:
                 if bestElements['T'] is not None:
-                    return bestElements['C'] + bestElements['T']
+                    bestElements = bestElements['C'] + bestElements['T']
                 else:
-                    return bestElements['C']
+                    bestElements = bestElements['C']
             elif bestElements['T'] is not None:
-                return bestElements['T']
+                bestElements = bestElements['T']
             else:
                 # no solution
-                pass
+                return None
         elif leftMostMin == 1:
-            # take C
+            # T
             if bestElements['C'] is not None:
-                return bestElements['C']
+                bestElements = bestElements['C']
             elif bestElements['A'] is not None:
-                return bestElements['A']
+                bestElements = bestElements['A']
             else:
                 # no solution
-                pass
+                return None
         elif leftMostMin == 2:
-            # take T
+            # C
             if bestElements['T'] is not None:
-                return bestElements['T']
+                bestElements = bestElements['T']
             elif bestElements['A'] is not None:
-                return bestElements['A']
+                bestElements = bestElements['A']
             else:
                 # no solution
-                pass
+                return None
         else:
-            # take G
+            # A or C+T
             if bestElements['G'] is not None:
-                return bestElements['G']
+                bestElements = bestElements['G']
             elif bestElements['C'] is not None:
                 if bestElements['T'] is not None:
-                    return bestElements['C'] + bestElements['T']
+                    bestElements = bestElements['C'] + bestElements['T']
                 else:
-                    return bestElements['C']
+                    bestElements = bestElements['C']
             elif bestElements['A'] is not None:
-                return bestElements['A']
+                bestElements = bestElements['A']
             else:
                 # no solution
-                pass
+                return None
+        
+        return bestElements
+    
+
+    def _score_indecies(self, indecies, raw, row_scores):
+        scoring = {
+            0: {
+                'C': 4,
+                'T': 4,
+                'G': -4,
+                'A': 8
+            },
+
+            1: {
+                'C': 8,
+                'T': -1,
+                'G': -1,
+                'A': 6
+            },
+
+            2: {
+                'C': -1,
+                'T': 8,
+                'G': -1,
+                'A': 6
+            },
+
+            3: {
+                'C': -1,
+                'T': -1,
+                'G': 1,
+                'A': -1
+            }
+        }
+
+        # <3
+
+        scores = []
+        for i in indecies:
+            score = 0
+            for k, e in enumerate(raw[i]):
+                score += scoring[row_scores[k]][e]
+            scores.append(score)
+        return scores
 
 
     def _heuristic(self, left, groups=[]):
+        curr = groups[-1]
+        res = None
+
+        # Pick the leftmost minimum
+        left_most_min = min(self.row_scores)
+        index = self.row_scores.index(left_most_min)
+        i7s = self._get_best_elements(left_most_min, index, self.i7)
+        # TODO: Might be None
+        i7scores = self._score_indecies(i7s, self.content['i7'], self.row_scores)
+        i7zipped = list(zip(i7s, i7scores))
         
+        print(self.row_scores)
+        for z in i7zipped:
+            print(self.content['i7'][z[0]], z[1])
+        
+        if self.i5 is not None:
+            i5s = self._get_best_elements(leftMostMin, index, self.i5)
+            # TODO: Might be None
+            i5scores = self._score_indecies(i5s, self.content['i5'], self.row_scores)
+            print(i5s)
+        
+        # Pick available indecies from 'left'
+
+        for i in range(len(left)):
+            new_left = left[:]
+            del new_left[i]
+            new_groups = groups[:-1] + [curr + [left[i]]]
+            res = self._group(new_left, new_groups)
+
+            if res is not None:
+                groups = new_groups
+                break
+        
+        return res
+
+
+    def _heuristic_old(self, left, groups=[]):
         # Initialize row scores
         row_scores = [0 for _ in range(self.i7_len + self.i5_len)]
 
@@ -153,8 +239,21 @@ class OptimizedDouble(DoubleChannel):
             # Pick the leftmost minimum
             leftMostMin = min(row_scores)
             index = row_scores.index(leftMostMin)
-            # maybe this fun only once? then scoring?
-            print(self._getBestElements(leftMostMin, index))
+            i7s = self._get_best_elements(leftMostMin, index, self.i7)
+            # TODO: Might be None
+            i7scores = self._score_indecies(i7s, self.content['i7'], row_scores)
+            i7zipped = list(zip(i7s, i7scores))
+            
+            print(row_scores)
+            for z in i7zipped:
+                print(self.content['i7'][z[0]], z[1])
+
+            if self.i5 is not None:
+                i5s = self._get_best_elements(leftMostMin, index, self.i5)
+                # TODO: Might be None
+                i5scores = self._score_indecies(i5s, self.content['i5'], row_scores)
+                print(i5s)
+
             break
 
         return None
