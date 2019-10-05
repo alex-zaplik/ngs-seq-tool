@@ -7,6 +7,7 @@ require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
 
+//set default values
 $index = 2;
 $seq = 2;
 $mat = 2;
@@ -17,6 +18,7 @@ $c2 = "checked";
 $c3 = "";
 $c4 = "";
 
+//set default values to values used in previous calculation
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
   $index = $_POST["index"];
   $seq = $_POST["seq"];
@@ -86,6 +88,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </div>
 
                   <?php else:
+                    //call python backedn script
                     $command = escapeshellcmd('python3 ../backend/successCalculator.py '
                     . $chan . " " . $index . " " . $seq . " " . $mat);
                     $output = shell_exec($command);

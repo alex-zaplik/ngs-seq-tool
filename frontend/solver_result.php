@@ -17,32 +17,38 @@ move_not_logged_users($_SESSION);
 <body>
 
 <?php
+//display last results present in generated/tmp.txt
+//as table in html
 $fn = fopen("generated/tmp.txt", "r");
 $title = "";
 $array = [];
 
+//iterate over all the data line by line
 while (!feof($fn)) {
   $result = fgets($fn);
+
+  //file header
   if ($result == "FILE:\n")
   {
+      //show the table
       show_2D_table($title, $array);
+      //prepare for next table
       $array = [];
       $title = fgets($fn);
   }
   else if ($result != "\n")
   {
-    array_push($array, explode(" ", $result));
+      //push data line
+      array_push($array, explode(" ", $result));
   }
   else
   {
+//      push empty line
       array_push($array, [" ", " ", " ", " "]);
   }
 }
+//show last table and close file
 show_2D_table($title, $array);
-
 fclose($fn);
-
-
 ?>
-
 </body>

@@ -7,13 +7,12 @@ require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
 
+// call python backend script
 $command = escapeshellcmd('python3 ../backend/excerciseGenerator.py '
 . $_POST['grp'] . " " . $_POST['row'] . " " . $_POST['col']);
 
 $output = shell_exec($command);
 $result = explode("\n", $output);
-
-//echo $output;
 
 ?>
 <!DOCTYPE html>
@@ -26,6 +25,8 @@ $result = explode("\n", $output);
 </head>
 <body>
 <?php
+//display result.
+//TODO: convert to 2D array
 for ($i = 0; $i < count($result); $i++)
 {
   echo $result[$i];
