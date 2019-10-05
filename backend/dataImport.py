@@ -31,5 +31,5 @@ def createStructure(resultList):
                     resDict[position][code].append(ind)
     return resDict
 
-resultDataDict = readNgsFile("backend/data/indexy_illumina.txt", ["name", None, "i7", None, "i5"])
-print(createStructure(resultDataDict["i7"])[6])
+# resultDataDict = readNgsFile("backend/data/indexy_illumina.txt", ["name", None, "i7", None, "i5"])
+# print(createStructure(resultDataDict["i7"])[6])

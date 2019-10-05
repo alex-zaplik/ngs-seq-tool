@@ -2,7 +2,6 @@ import algorithmChecker as ac
 
 
 class Algorithm:
-
     def __init__(self, runs, samples, i7, i5=None):
         if i5 is None:
             self.indecies = [(i, ) for i in range(len(i7))]
@@ -50,8 +49,7 @@ class Algorithm:
         return self._group(self.indecies)
 
 
-class BruteForce(Algorithm):
-    
+class DoubleChannel(Algorithm):
     def _checkGroup(self, group):
         converted = []
 
@@ -62,8 +60,9 @@ class BruteForce(Algorithm):
             converted.append(txt)
         
         return ac.checkAlgorithm(converted)
-    
 
+
+class BruteForce(DoubleChannel):
     def _heuristic(self, left, groups=[]):
         curr = groups[-1]
         res = None
