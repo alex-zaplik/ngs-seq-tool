@@ -2,16 +2,18 @@ import algorithmChecker as ac
 
 
 class Algorithm:
-    def __init__(self, runs, samples, i7, i5=None):
-        if i5 is None:
-            self.indecies = [(i, ) for i in range(len(i7))]
+    def __init__(self, runs, samples, content, i7, i5=None):
+        if i5 not in content:
+            self.indecies = [(i, ) for i in range(len(content['i7']))]
         else:
-            self.indecies = [(i, j) for i in range(len(i7)) for j in range(len(i5))]
+            self.indecies = [(i, j) for i in range(len(content['i7'])) for j in range(len(content['i5']))]
         
         self.i7 = i7
         self.i5 = i5
+        self.content = content
         self.runs = runs
         self.samples = samples
+    
 
     def _checkGroup(self, group):
         return None
@@ -59,9 +61,9 @@ class DoubleChannel(Algorithm):
         converted = []
 
         for sample in group:
-            txt = self.i7[sample[0]]
+            txt = self.content['i7'][sample[0]]
             if self.i5 is not None:
-                txt += self.i5[sample[1]]
+                txt += self.content['i5'][sample[1]]
             converted.append(txt)
         
         return ac.checkAlgorithm(converted)
@@ -87,11 +89,10 @@ class BruteForce(DoubleChannel):
 
 class OptimizedDouble(DoubleChannel):
     def __init__(self, runs, samples, content, i7, i5=None):
-        super().__init__(runs, samples, i7, i5)
+        super().__init__(runs, samples, content, i7, i5)
 
         self.i7_len = len(content['i7'][0])
         self.i5_len = len(content['i5'][0]) if 'i5' in content else 0
-        self.content = content
 
     
     def _new_group_extra(self):
@@ -193,6 +194,25 @@ class OptimizedDouble(DoubleChannel):
         return scores
 
 
+    def _calc_index_score(self, sample):
+        txt = self.content['i7'][sample[0]]
+        if self.i5 is not None:
+            txt += self.content['i5'][sample[1]]
+        
+        enzyme_scores = {
+            'A': 0b11,
+            'C': 0b10,
+            'T': 0b01,
+            'G': 0b00
+        }
+
+        scores = [0 for _ in range(len(txt))]
+        for i, c in enumerate(txt):
+            scores[i] = enzyme_scores[c]
+
+        return scores
+
+
     def _heuristic(self, left, groups=[]):
         curr = groups[-1]
         res = None
@@ -204,36 +224,48 @@ class OptimizedDouble(DoubleChannel):
         # TODO: Might be None
         i7scores = self._score_indecies(i7s, self.content['i7'], self.row_scores)
         i7zipped = list(zip(i7s, i7scores))
-        
-        print(self.row_scores)
-        for z in i7zipped:
-            print(self.content['i7'][z[0]], z[1])
-        
-        # Mikołaj - lista rankingowa
 
         if self.i5 is None:
-            rank = [x[0] for x in sorted(i7zipped, key=lambda x: x[1])]
+            rank = [(x[0], ) for x in sorted(i7zipped, key=lambda x: x[1], reverse=True)]
         else:
             i5s = self._get_best_elements(left_most_min, index, self.i5)
             # TODO: Might be None
             i5scores = self._score_indecies(i5s, self.content['i5'], self.row_scores)
             i5zipped = list(zip(i5s, i5scores))
             i7i5summed = [(i[0], j[0], i[1]+j[1]) for i in i7zipped for j in i5zipped]
-            rank = [x[0] for x in sorted(i7i5summed, key=lambda x: x[1])]
-
-        print("######", left, "#######")
+            rank = [(x[0], x[1]) for x in sorted(i7i5summed, key=lambda x: x[2], reverse=True)]
 
         # Pick available indecies from 'left'
+        available = [a for a in rank if a in left]
+        # print(groups)
 
-        for i in range(len(left)):
+        tmp_row_scores = self.row_scores[:]
+        # print(groups)
+
+        for a in available:
             new_left = left[:]
-            del new_left[i]
-            new_groups = groups[:-1] + [curr + [left[i]]]
+            new_left.remove(a)
+
+            # TODO: Calculate new row scores
+            new_scores = self._calc_index_score(a)
+            # print(self.row_scores, "+", new_scores, "=", end=" ")
+            self.row_scores = [self.row_scores[i] | new_scores[i] for i in range(len(self.row_scores))]
+            # print(self.row_scores)
+            
+            new_groups = groups[:-1] + [curr + [a]]
             res = self._group(new_left, new_groups)
 
             if res is not None:
                 groups = new_groups
                 break
+            else:
+                self.row_scores = tmp_row_scores[:]
+                # if len(curr) > 0:
+                #     print(curr)
+                #     print(left)
+                #     print(groups)
+                #     print()
+                #     left.remove(curr[0])
         
         return res
 
