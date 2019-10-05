@@ -19,21 +19,33 @@ function move_not_logged_users($SESSION_VARIABLE)
   }
 }
 
+/***
+ * Prints html table with predefined column names
+ * @param $title string containing title for header for table
+ * @param $data 2D array with information to fill the table.
+ */
 function show_2D_table($title, $data)
 {
-  echo $title;
-  echo "<br>";
+  echo "<h1>". $title . "</h1>";
 
-  echo count($data);
-  echo "<br>";
-  for ($row = 0; $row < count($data); $row++) {
-    echo "<p><b>Row number $row</b></p>";
-    echo "<ul>";
-    for ($col = 0; $col < 3; $col++) {
-      echo "<li>".$data[$row][$col]."</li>";
-    }
-    echo "</ul>";
+  echo "<table>";
+  echo "<tr>";
+  echo "<th>label</th>";
+  echo "<th>i5</th>";
+  if (count($data[0]) > 2)
+  {
+    echo "<th>label</th>";
+    echo "<th>i7</th>";
   }
+  echo "</tr>";
+  for ($row = 0; $row < count($data); $row++) {
+    echo "<tr>";
+    for ($col = 0; $col < count($data[$row]); $col++) {
+      echo "<td>".$data[$row][$col]."</td>";
+    }
+    echo "</tr>";
+  }
+  echo "</table>";
 }
 
 

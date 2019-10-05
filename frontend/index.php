@@ -10,7 +10,7 @@ move_not_logged_users($_SESSION);
 ?>
 <html>
 <head>
-    <title>Admin Page</title>
+    <title>NGS indexing tool</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 </head>
