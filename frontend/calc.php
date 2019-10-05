@@ -82,7 +82,7 @@ move_not_logged_users($_SESSION);
                     </div>
 
                     <div class="form-group">
-                        <a href="./" role="button" class="upload btn btn-secondary btn-block" type="submit" name="submit">Back to the homepage</a>
+                        <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
                     </div>      
                     
 <?php endif; ?>
