@@ -34,19 +34,23 @@ move_not_logged_users($_SESSION);
                         <input type="text" class="form-control" id="indexLength" value="4">
                     </div>
 
-
                     <div class="form-group">
                         <label for="formGroupExampleInput">Sequence length:</label>
                         <input type="text" class="form-control" id="sequence" value="2">
                     </div>
 
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Matrix length:</label>
+                        <input type="text" class="form-control" id="matrix" value="2">
+                    </div>
+
 
                     <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-secondary active">
-                            <input type="radio" name="buttons" id="single" autocomplete="off" checked>2 channel
+                            <input type="radio" name="buttons" id="double" autocomplete="off" checked>2 channel
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="buttons" id="double" autocomplete="off">4 channel
+                            <input type="radio" name="buttons" id="quad" autocomplete="off">4 channel
                         </label>
                     </div>
 
@@ -63,18 +67,18 @@ move_not_logged_users($_SESSION);
                     <hr>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Sequence length:</label>
-                        <input type="text" class="form-control" id="sequence" value="2" disabled>
+                        <label for="formGroupExampleInput">Column ok:</label>
+                        <input type="text" class="form-control" id="column" value="2" disabled>
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Sequence length:</label>
-                        <input type="text" class="form-control" id="sequence" value="2" disabled> 
+                        <label for="formGroupExampleInput">Matrix ok:</label>
+                        <input type="text" class="form-control" id="matrixok" value="2" disabled> 
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Sequence length:</label>
-                        <input type="text" class="form-control" id="sequence" value="2" disabled>
+                        <label for="formGroupExampleInput">All matrices:</label>
+                        <input type="text" class="form-control" id="matricesok" value="2" disabled>
                     </div>
 
                     <div class="form-group">
