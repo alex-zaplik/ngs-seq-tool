@@ -38,10 +38,10 @@ class BruteForce(Algorithm):
                 txt += self.i5[sample[1]]
             converted.append(txt)
 
-        for c in converted:
-            print(c)
-        print(ac.checkAlgorithm(converted))
-        print()
+        # for c in converted:
+        #     print(c)
+        # print(ac.checkAlgorithm(converted))
+        # print()
         
         return ac.checkAlgorithm(converted)
     
