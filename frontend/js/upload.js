@@ -18,6 +18,11 @@ form.addEventListener('submit', e => {
     let i7Column = document.getElementById('i7').value;
     let i5Column = document.getElementById('i5').value;
 
+    if (files.length === 0)
+    {
+        return;
+    }
+
     for (let i = 0; i < files.length; i++) {
         let file = files[i];
         console.log(file);
