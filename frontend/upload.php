@@ -18,7 +18,7 @@ move_not_logged_users($_SESSION);
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
-    <body class="h-100"  style="background-color: #baed91;">
+    <body class="h-100" style="background-color: #baed91;">
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <form class="col-4 card" method="post" enctype="multipart/form-data">
@@ -29,27 +29,25 @@ move_not_logged_users($_SESSION);
                             onchange="javascript:updateList()" />
                     </div>
 
-
-
                     <div class="form-group">
                         <label for="formGroupExampleInput">Runs:</label>
-                        <input type="text" class="form-control" id="runs" placeholder="Example input" value="4">
+                        <input type="text" class="form-control" id="runs" value="4" required>
                     </div>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">Samples:</label>
-                        <input type="text" class="form-control" id="samples" placeholder="Example input" value="6">
+                        <input type="text" class="form-control" id="samples" value="4">
                     </div>
 
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">i7 column:</label>
-                        <input type="text" class="form-control" id="i7" placeholder="Example input" value="0">
+                        <input type="text" class="form-control" id="i7" value="2">
                     </div>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">i5 column:</label>
-                        <input type="text" class="form-control" id="i5" placeholder="Example input" value="1">
+                        <input type="text" class="form-control" id="i5" value="1">
                     </div>      
 
 
@@ -66,12 +64,13 @@ move_not_logged_users($_SESSION);
                         <input class="upload btn btn-primary btn-block" type="submit" value="Upload File" name="submit">
                     </div>      
                     
-
                 </form> 
             </div>  
         </div>
 
-
+        <div style="position: absolute; right:200px; bottom: 200px; transform: rotate(-20deg); color: #8cb36d;" class="h3">
+            thinking out of the box!
+        </div>
     </body>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
