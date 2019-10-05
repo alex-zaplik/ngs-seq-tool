@@ -24,35 +24,43 @@ move_not_logged_users($_SESSION);
 <div class="container">
   <div class="row h-100 justify-content-center align-items-center">
     <div class="col-4 card">
-           
-    <?php
-    $fn = fopen("generated/tmp.txt", "r");
-    $title = "";
-    $array = [];
 
-    while (!feof($fn)) {
-      $result = fgets($fn);
-      if ($result == "FILE:\n")
-      {
-          show_2D_table($title, $array);
-          $array = [];
-          $title = fgets($fn);
-      }
-      else if ($result != "\n")
-      {
-        array_push($array, explode(" ", $result));
-      }
-      else
-      {
-          array_push($array, [" ", " ", " ", " "]);
-      }
-    }
-    show_2D_table($title, $array);
+<?php
+//display last results present in generated/tmp.txt
+//as table in html
+$fn = fopen("generated/tmp.txt", "r");
+$title = "";
+$array = [];
 
-    fclose($fn);
+//iterate over all the data line by line
+while (!feof($fn)) {
+  $result = fgets($fn);
 
-
-    ?>
+  //file header
+  if ($result == "FILE:\n")
+  {
+      //show the table
+      show_2D_table($title, $array);
+      //prepare for next table
+      $array = [];
+      $title = fgets($fn);
+  }
+  else if ($result != "\n")
+  {
+      //push data line
+      array_push($array, explode(" ", $result));
+  }
+  else
+  {
+//      push empty line
+      array_push($array, [" ", " ", " ", " "]);
+  }
+}
+//show last table and close file
+show_2D_table($title, $array);
+fclose($fn);
+?>
+</body>
 </div>
 </div>
 </div>

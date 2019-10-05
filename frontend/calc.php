@@ -7,6 +7,7 @@ require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
 
+//set default values
 $index = 2;
 $seq = 2;
 $mat = 2;
@@ -17,6 +18,7 @@ $c2 = "checked";
 $c3 = "";
 $c4 = "";
 
+//set default values to values used in previous calculation
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
   $index = $_POST["index"];
   $seq = $_POST["seq"];
@@ -37,7 +39,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <title>Upload Files</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/mainn.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
@@ -87,6 +88,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </div>
 
                   <?php else:
+                    //call python backedn script
                     $command = escapeshellcmd('python3 ../backend/successCalculator.py '
                     . $chan . " " . $index . " " . $seq . " " . $mat);
                     $output = shell_exec($command);

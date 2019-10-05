@@ -4,6 +4,7 @@ $error = "";
 if(isset($_POST['submit'])){
   $username = $_POST['username'];
   $password = $_POST['password'];
+  //temporary not secure check
   if($username === 'BNC' && $password === 'abc123'){
     $_SESSION['login'] = true;
     header('LOCATION:index.php');
@@ -29,6 +30,7 @@ if(isset($_POST['submit'])){
 <body>
 <div class="container">
     <?php
+    //display error card if not empty
     if ($error != ""){
         echo $error;
     }

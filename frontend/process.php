@@ -1,14 +1,11 @@
 <?php
-//      $file_type = $_FILES['files']['type'][$i];
-//      $file_size = $_FILES['files']['size'][$i];
-//      $file_ext = strtolower(end(explode('.', $_FILES['files']['name'][$i])));
 
-
+//post value with files must be set
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_FILES['files'])) {
+    //init variables
     $path = 'uploads/';
     $all_files = count($_FILES['files']['tmp_name']);
-
     $date = date('m:d:Y-h:i:s_', time());
     $prefix = $_POST['prefix'];
     $runs = $_POST['runs'];
@@ -17,7 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $i5 = $_POST['i5'];
     $total = "";
 
+    //prepare output files
     $commandFile = fopen('generated/command.txt', 'w');
+    $outputFile = fopen('generated/tmp.txt', 'w');
+
 
     for ($i = 0; $i < $all_files; $i++) {
       //saves the file
@@ -29,14 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //calculates the result
       $command = escapeshellcmd('python3 ../backend/main.py --path '. $file . " --indexing ". $prefix
       . " --runs ". $runs . " --samples " . $samples . " --i5 " . $i5 . " --i7 " . $i7);
-      fwrite($commandFile, $command);
-      fwrite($commandFile, "\n");
 
+      //append result to files
+      fwrite($commandFile, "\n");
+      fwrite($commandFile, $command);
       $output = shell_exec($command);
       $total = $total ."FILE:\n". $file_name . "\n" . $output;
     }
 
-    $outputFile = fopen('generated/tmp.txt', 'w');
+    //close result file 
     fwrite($outputFile, $total);
     fclose($outputFile);
     fclose($commandFile);
