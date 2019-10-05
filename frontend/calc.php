@@ -20,7 +20,7 @@ move_not_logged_users($_SESSION);
 
     <body class="h-100" style="background-color: #baed91;">
 
-        <div style="position: absolute; right:200px; bottom: 200px; transform: rotate(-20deg); color: #8cb36d;" class="h3">
+    <div style="position: absolute; right:5vw; bottom: 10vw; transform: rotate(-30deg); color: #8cb36d;" class="h3">
             thinking out of the box!
         </div>
 
@@ -83,10 +83,11 @@ move_not_logged_users($_SESSION);
 
                     <div class="form-group">
                         <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
-                    </div>      
-                    
+                    </div>  
+
 <?php endif; ?>
 
+                </form>
             </div>  
         </div>
     </body>
