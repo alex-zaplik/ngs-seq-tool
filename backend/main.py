@@ -1,4 +1,15 @@
-from algorithm import Algorithm
+import algorithm as alg
 
-a = Algorithm()
-print(a.bruteForce())
+from algorithmChecker import checkAlgorithm
+
+a = alg.BruteForce()
+res = a.group()
+
+for r in res:
+    for s in r:
+        print(s)
+    print()
+
+for r in res:
+    if not checkAlgorithm(r):
+        print("UPS! -> ", r)

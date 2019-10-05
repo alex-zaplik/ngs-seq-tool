@@ -1,14 +1,34 @@
 import customGenerator as cg
+import algorithmChecker as ac
 
 class Algorithm:
 
-    def __init__(self, indecies=None, runs=6, samples=4, length=8):
+    def __init__(self, indecies=None, runs=6, samples=4, length=20):
         if indecies is None:
             indecies = cg.generateSequences(runs * samples, length)
+            print(indecies)
 
         self.indecies = indecies
         self.runs = runs
         self.samples = samples
+
+
+    def _checkGroup(self, group):
+        return None
+
+
+    def group(self):
+        return None
+
+
+class BruteForce(Algorithm):
+
+    def group(self):
+        return self._bruteForce(self.indecies)
+
+    
+    def _checkGroup(self, group):
+        return ac.checkAlgorithm(group)
     
 
     def _bruteForce(self, left, groups=[]):
@@ -21,7 +41,8 @@ class Algorithm:
 
         if len(groups) > 0:
             if len(groups[-1]) >= self.samples:
-                # TODO: Chech if groups[-1] is correct. If not: return None
+                if not self.checkGroup(groups[-1]):
+                    return None
                 groups.append([])
         else:
             groups.append([])
@@ -42,6 +63,9 @@ class Algorithm:
         return res
 
 
+class BruteForceFour(BruteForce):
+    
+    def _checkGroup(self, group):
+        return None
 
-    def bruteForce(self):
-        return self._bruteForce(self.indecies)
+        # TODO: return ac.checkAlgorithm(group)
