@@ -19,9 +19,9 @@ move_not_logged_users($_SESSION);
         <div class="leftpane">
             <div class="centered">
                 <h1>Upload</h1>
-                    <div class="big">
+                    <a href="upload.php" class="big">
                         <i class="fas fa-file-upload"></i>
-                    </div>
+                    </a>
             </div>
         </div>
         <div class="middlepane">
