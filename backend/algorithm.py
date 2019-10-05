@@ -79,3 +79,21 @@ class BruteForce(DoubleChannel):
         
         return res
 
+
+class OptimizedDouble(DoubleChannel):
+    def __init__(self, runs, samples, i7_len, i7, i5=None, i5_len=0):
+        super().__init__(runs, samples, i7, i5)
+
+        self.i7_len = i7_len
+        self.i5_len = i5_len
+
+    def _heuristic(self, left, groups=[]):
+        
+        # Initialize row scores
+        row_scores = [0 for _ in range(self.i7_len + self.i5_len)]
+
+        for i in range(self.samples):
+            # Pick the leftmost minimum
+            pass
+
+        return None

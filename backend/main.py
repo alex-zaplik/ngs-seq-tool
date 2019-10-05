@@ -3,7 +3,7 @@ import argparse
 import customGenerator as cg
 
 from algorithmChecker import checkAlgorithm
-from dataImport import readNgsFile
+from dataImport import readNgsFile, createStructure
 
 
 SINGLE = "single"
@@ -37,11 +37,19 @@ else:
     columns[args.i7] = I7
 
 content = readNgsFile(args.path, columns)
-i7 = content[I7]
-i5 = content[I5] if args.indexing == DOUBLE else None
+i7 = createStructure(content[I7])
+i5 = createStructure(content[I5]) if args.indexing == DOUBLE else None
 
-a = alg.BruteForce(args.runs, args.samples, i7, i5=i5)
-res = a.group()
+optim = alg.OptimizedDouble(args.runs, args.samples, len(content[I7][0]), i7, i5=i5, i5_len=len(content[I5][0]) if I5 in content else 0)
+res = optim.group()
+
+if res is None:
+    i7 = content[I7]
+    i5 = content[I5] if args.indexing == DOUBLE else None
+
+    a = alg.BruteForce(args.runs, args.samples, i7, i5=i5)
+    res = a.group()
+
 for r in res:
     for s in r:
         cols = [I7, I5]
