@@ -16,6 +16,12 @@ NAME = 'name'
 
 parser = argparse.ArgumentParser()
 
+#testowe polecenie (z backendu)
+#python3 main.py --path "data/index_nextera.txt" --indexing "double" --runs 1 --samples 4 --i7 1 --i5 2
+
+#testowe polecenie (z frontendu)
+#python3 ../backend/main.py --path uploads/10:05:2019-08:14:09_indexy_vazyme.txt --indexing single --runs 4 --samples 4 --i7 1
+
 parser.add_argument('--path', type=str, help="Path to the data file")
 parser.add_argument('--indexing', type=str, choices=(SINGLE, DOUBLE), help="Indexing method. Expectig 'i7' if 'single' and 'i7' as well as 'i5' if 'double'")
 parser.add_argument('--runs', type=int, help="The number of sequencing runs")
