@@ -35,7 +35,7 @@ function show_2D_table($title, $data)
 
   if (empty($data))
   {
-    echo "<p>Something went wrong :(</p>";
+    echo "<p>Something went horribly wrong :(</p>";
     return;
   }
 
@@ -65,8 +65,7 @@ function show_2D_table($title, $data)
  * @param $x string first value to swap
  * @param $y string second value to swap
  */
-
-function swap(&$x, &$y) {
+  function swap(&$x, &$y) {
   $tmp=$x;
   $x=$y;
   $y=$tmp;

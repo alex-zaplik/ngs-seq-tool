@@ -31,6 +31,7 @@ move_not_logged_users($_SESSION);
 $fn = fopen("generated/tmp.txt", "r");
 $title = "";
 $array = [];
+$double = true;
 
 //iterate over all the data line by line
 while (!feof($fn)) {
@@ -48,12 +49,27 @@ while (!feof($fn)) {
   else if ($result != "\n")
   {
       //push data line
-      array_push($array, explode(" ", $result));
+      $row = explode(" ", $result);
+      array_push($array, $row);
+      if (count($row) == 2)
+      {
+          $double = false;
+      }
+      else{
+          $double = true;
+      }
+
   }
   else
   {
 //      push empty line
-      array_push($array, [" ", " ", " ", " "]);
+      if ($double)
+      {
+        array_push($array, [" ", " ", " ", " "]);
+      }
+      else{
+        array_push($array, [" ", " "]);
+      }
   }
 }
 //show last table and close file
