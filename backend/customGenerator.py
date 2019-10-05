@@ -1,6 +1,6 @@
 import random
 
-def generateSequences(samples ::int, length ::int):
+def generateSequences(samples: int, length: int):
     letters = 'ATGC'
     s = []
     for i in range(samples):
