@@ -21,9 +21,14 @@ move_not_logged_users($_SESSION);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body class="h-100" style="background-color: #baed91;">
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="col-4 card">
+  <div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-12 card p-3">
+        <div class="page-header">
+          <h1 class="text-center">Results</h1>
+        </div>
+        <hr>
+        <div class="row">
 
 <?php
 //display last results present in generated/tmp.txt
@@ -59,10 +64,10 @@ while (!feof($fn)) {
 //show last table and close file
 show_2D_table($title, $array);
 fclose($fn);
-?>
-</body>
-</div>
-</div>
-</div>
+?>  
+          <div>
+        <div>
+    </div>
+  </div>
 </body>
 </html>

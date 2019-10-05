@@ -31,11 +31,11 @@ function show_2D_table($title, $data)
     return;
   }
 
-  echo "<p class='h4'>". $title . ":</p>";
+  echo "<div class='col-12 col-sm-6 col-lg-4'><p class='h4'>". $title . ":</p>";
 
   if (empty($data))
   {
-    echo "<p>Something went horribly wrong :(</p>";
+    echo "<p>Something went horribly wrong :(</p></div>";
     return;
   }
 
@@ -57,7 +57,7 @@ function show_2D_table($title, $data)
     }
     echo "</tr>\n";
   }
-  echo "</table>\n";
+  echo "</table></div>\n";
 }
 
 /***
