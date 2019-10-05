@@ -31,7 +31,7 @@ function show_2D_table($title, $data)
     return;
   }
 
-  echo "<h1>". $title . ":</h1>";
+  echo "<p class='h4'>". $title . ":</p>";
 
   if (empty($data))
   {
@@ -39,25 +39,25 @@ function show_2D_table($title, $data)
     return;
   }
 
-  echo "<table>";
+  echo "<table class='table table-sm'>";
   echo "<tr>";
-  echo "<th>label</th>";
-  echo "<th>i5</th>";
+  echo "<th scope='col'>label</th>";
+  echo "<th scope='col'>i5</th>";
 
   if (count($data[0]) > 3)
   {
-    echo "<th>label</th>";
-    echo "<th>i7</th>";
+    echo "<th scope='col'>label</th>";
+    echo "<th scope='col'>i7</th>";
   }
-  echo "</tr>";
+  echo "</tr>\n";
   for ($row = 0; $row < count($data); $row++) {
-    echo "<tr>";
+    echo "<tr scope='row'>";
     for ($col = 0; $col < count($data[$row]); $col++) {
-      echo "<td>".$data[$row][$col]."</td>";
+      echo "<td >".$data[$row][$col]."</td>";
     }
-    echo "</tr>";
+    echo "</tr>\n";
   }
-  echo "</table>";
+  echo "</table>\n";
 }
 
 /***
