@@ -34,9 +34,9 @@ move_not_logged_users($_SESSION);
         </div>
         <div class="rightpane">
             <div class="centered">
-                <h1>History</h1>
-                    <a href="hist.php" class="big">
-                        <i class="fas fa-history"></i>
+                <h1>Generate</h1>
+                    <a href="generate.php" class="big">
+                        <i class="fas fa-dna"></i>
                     </a>
             </div>
         </div>
