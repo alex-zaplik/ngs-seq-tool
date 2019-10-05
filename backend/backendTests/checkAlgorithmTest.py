@@ -26,6 +26,36 @@ class TestCheckAlgorithm(unittest.TestCase):
                 'GGAGCTAC']
             )
         )
+    
+    # extra data tests
+
+    def test_A_extra_data(self):
+        self.assertEqual(checkAlgorithm('A', True), [True])
+
+    def test_CT_extra_data(self):
+        self.assertEqual(checkAlgorithm(['C', 'T'], True), [True])
+    
+    def test_illumina_example_extra_data(self):
+        self.assertEqual(
+            checkAlgorithm(
+                ['ATTCAGAA',
+                'GAATTCGT',
+                'AGCGATAG'],
+                True
+             ),
+             [True, True, True, True, True, True, True, True]
+        )
+    
+    def test_illumina_example_not_extra_data(self):
+        self.assertEqual(
+            checkAlgorithm(
+                ['GCTACGCT',
+                 'GTAGAGGA',
+                 'GGAGCTAC'],
+                True
+            ),
+            [False, True, True, True, True, False, True, True]
+        )
 
 if __name__ == '__main__':
     unittest.main()
