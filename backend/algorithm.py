@@ -13,7 +13,6 @@ class Algorithm:
         self.runs = runs
         self.samples = samples
 
-
     def _checkGroup(self, group):
         return None
     
@@ -210,12 +209,20 @@ class OptimizedDouble(DoubleChannel):
         for z in i7zipped:
             print(self.content['i7'][z[0]], z[1])
         
-        if self.i5 is not None:
-            i5s = self._get_best_elements(leftMostMin, index, self.i5)
+        # Mikołaj - lista rankingowa
+
+        if self.i5 is None:
+            rank = [x[0] for x in sorted(i7zipped, key=lambda x: x[1])]
+        else:
+            i5s = self._get_best_elements(left_most_min, index, self.i5)
             # TODO: Might be None
             i5scores = self._score_indecies(i5s, self.content['i5'], self.row_scores)
-            print(i5s)
-        
+            i5zipped = list(zip(i5s, i5scores))
+            i7i5summed = [(i[0], j[0], i[1]+j[1]) for i in i7zipped for j in i5zipped]
+            rank = [x[0] for x in sorted(i7i5summed, key=lambda x: x[1])]
+
+        print("######", left, "#######")
+
         # Pick available indecies from 'left'
 
         for i in range(len(left)):
