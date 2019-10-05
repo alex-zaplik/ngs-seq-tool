@@ -32,7 +32,4 @@ def createStructureFromFile(filename, column):
     file = readNgsFile(filename, [column])
     return createStructure(file, 0)
 
-print(readNgsFile("backend/data/indexy_illumina.txt", ["name", None,  "i7", None, "i5"]))
-
-#result = createStructureFromFile("backend/data/indexy_illumina.txt", 3)
-#print(result[2]["C"])
+#print(readNgsFile("backend/data/indexy_illumina.txt", ["name", None,  "i7", None, "i5"]))
