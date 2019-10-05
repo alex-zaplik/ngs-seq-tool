@@ -25,10 +25,20 @@ move_not_logged_users($_SESSION);
             </div>
         </div>
         <div class="middlepane">
-            Test Page
+            <div class="centered">
+                <h1>Calculator</h1>
+                    <a href="calc.php" class="big">
+                        <i class="fas fa-calculator"></i>
+                    </a>
+            </div>
         </div>
         <div class="rightpane">
-            <h1>Test Page</h1>
+            <div class="centered">
+                <h1>History</h1>
+                    <a href="hist.php" class="big">
+                        <i class="fas fa-history"></i>
+                    </a>
+            </div>
         </div>
     </div>
 </body>
