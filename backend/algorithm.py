@@ -86,6 +86,61 @@ class OptimizedDouble(DoubleChannel):
 
         self.i7_len = i7_len
         self.i5_len = i5_len
+    
+    def _getBestElements(self, leftMostMin, index):
+        if index < self.i7_len:
+            structure = self.i7
+        else:
+            index -= self.i7_len
+            structure = self.i5
+        
+        bestElements = structure[index]
+
+        # TODO need to return where are indexes from, i7 or i5
+        if leftMostMin == 0:
+            if bestElements['A'] is not None:
+                return bestElements['A']
+            elif bestElements['C'] is not None:
+                if bestElements['T'] is not None:
+                    return bestElements['C'] + bestElements['T']
+                else:
+                    return bestElements['C']
+            else:
+                # no solution
+                pass
+        elif leftMostMin == 1:
+            # take C
+            if bestElements['C'] is not None:
+                return bestElements['C']
+            elif bestElements['A'] is not None:
+                return bestElements['A']
+            else:
+                # no solution
+                pass
+        elif leftMostMin == 2:
+            # take T
+            if bestElements['T'] is not None:
+                return bestElements['T']
+            elif bestElements['A'] is not None:
+                return bestElements['A']
+            else:
+                # no solution
+                pass
+        else:
+            # take G
+            if bestElements['G'] is not None:
+                return bestElements['G']
+            elif bestElements['C'] is not None:
+                if bestElements['T'] is not None:
+                    return bestElements['C'] + bestElements['T']
+                else:
+                    return bestElements['C']
+            elif bestElements['A'] is not None:
+                return bestElements['A']
+            else:
+                # no solution
+                pass
+
 
     def _heuristic(self, left, groups=[]):
         
@@ -94,6 +149,10 @@ class OptimizedDouble(DoubleChannel):
 
         for i in range(self.samples):
             # Pick the leftmost minimum
-            pass
+            leftMostMin = min(row_scores)
+            index = row_scores.index(leftMostMin)
+            # maybe this fun only once? then scoring?
+            print(self._getBestElements(leftMostMin, index))
+            break
 
         return None
