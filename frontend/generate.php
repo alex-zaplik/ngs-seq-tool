@@ -17,16 +17,16 @@ move_not_logged_users($_SESSION);
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
-    <body class="h-100" style="background-color: #baed91;">
+    <body class="h-100" style="background-color: #f8b88b;">
 
         <div style="position: absolute; top:5vw; right: 0vw" class="h3">
-            <p style="transform: rotate(30deg); color: #8cb36d;">thinking out of the box!</p>
+            <p style="transform: rotate(30deg); color: #b28059;">thinking out of the box!</p>
         </div>
 
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <form class="col-4 card" method="post" enctype="multipart/form-data" action="generator_result.php">
-                    <h1 class="my-3">Exercise generator</h1>
+                    <h1 class="my-3">Data generator</h1>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">Groups:</label>

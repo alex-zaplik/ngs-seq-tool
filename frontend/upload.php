@@ -26,7 +26,7 @@ move_not_logged_users($_SESSION);
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <form class="col-4 card" method="post" enctype="multipart/form-data">
-                    <h1 class="my-3">File Upload</h1>
+                    <h1 class="my-3">File uploader</h1>
 
                     <div class="form-group">
                         <div class="custom-file">

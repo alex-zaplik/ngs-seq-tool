@@ -42,16 +42,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
-    <body class="h-100" style="background-color: #baed91;">
+    <body class="h-100" style="background-color: #b2cefe;">
 
         <div style="position: absolute; top:5vw; right: 0vw" class="h3">
-            <p style="transform: rotate(30deg); color: #8cb36d;">thinking out of the box!</p>
+            <p style="transform: rotate(30deg); color: #8aa0ce;">thinking out of the box!</p>
         </div>
 
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <form class="col-4 card" method="post" enctype="multipart/form-data">
-                    <h1 class="my-3">Input</h1>
+                    <h1 class="my-3">Simulator</h1>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">Index count (rows):</label>
