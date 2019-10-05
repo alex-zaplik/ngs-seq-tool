@@ -6,6 +6,36 @@ error_reporting(E_ALL);
 require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
+
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+  $index = $_POST["index"];
+  $seq = $_POST["seq"];
+  $mat = $_POST["mat"];
+  $chan = $_POST["buttons"];
+
+  $c1 = "active";
+  $c2 = "checked";
+  $c3 = "";
+  $c4 = "";
+
+  if ($chan == "4")
+  {
+    swap($c3, $c1);
+    swap($c4, $c2);
+  }
+}
+else{
+  $index = 2;
+  $seq = 2;
+  $mat = 2;
+  $chan = 2;
+
+  $c1 = "active";
+  $c2 = "checked";
+  $c3 = "";
+  $c4 = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,61 +61,64 @@ move_not_logged_users($_SESSION);
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">Index length:</label>
-                        <input type="text" class="form-control" id="indexLength" value="4">
+                        <input type="text" name="index" class="form-control" id="indexLength" value="<?php echo $index ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">Sequence length:</label>
-                        <input type="text" class="form-control" id="sequence" value="2">
+                        <input type="text" name="seq" class="form-control" id="sequence" value="<?php echo $seq ?>">
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Matrix length:</label>
-                        <input type="text" class="form-control" id="matrix" value="2">
+                        <label for="formGroupExampleInput">Matrix count:</label>
+                        <input type="text" name="mat" class="form-control" id="matrix" value="<?php echo $mat ?>">
                     </div>
 
 
                     <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                            <input type="radio" name="buttons" id="double" autocomplete="off" checked>2 channel
+                        <label class="btn btn-secondary <?php echo $c1 ?>">
+                            <input type="radio" name="buttons" id="double" value="2" autocomplete="off" <?php echo $c2 ?>>2 channel
                         </label>
-                        <label class="btn btn-secondary">
-                            <input type="radio" name="buttons" id="quad" autocomplete="off">4 channel
+                        <label class="btn btn-secondary <?php echo $c3 ?>">
+                            <input type="radio" name="buttons" id="quad" value="4" autocomplete="off" <?php echo $c4 ?>>4 channel
                         </label>
                     </div>
 
-                
-<?php if($_SERVER['REQUEST_METHOD'] != 'POST'): ?>
-
-                    <div class="form-group">
+                      <div class="form-group">
                         <input class="upload btn btn-primary btn-block" type="submit" value="Calculate it!" name="submit">
-                    </div>      
-
-                    
-<?php else: ?>
-
-                    <hr>
-
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Column ok:</label>
-                        <input type="text" class="form-control" id="column" value="2" disabled>
                     </div>
 
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Matrix ok:</label>
-                        <input type="text" class="form-control" id="matrixok" value="2" disabled> 
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">All matrices:</label>
-                        <input type="text" class="form-control" id="matricesok" value="2" disabled>
-                    </div>
-
+                  <?php if($_SERVER['REQUEST_METHOD'] != 'POST'): ?>
                     <div class="form-group">
                         <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
-                    </div>      
-                    
-<?php endif; ?>
+                    </div>
+
+                  <?php else:
+
+                    $command = escapeshellcmd('python3 ../backend/successCalculator.py '
+                    . $chan . " " . $index . " " . $seq . " " . $mat);
+                    $output = shell_exec($command);
+                    $result = explode(" ", $output);
+                    ?>
+                    <hr>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">No error in column probability:</label>
+                        <input type="text" class="form-control" id="column" value="<?php echo $result[0]?>"disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">No error in matrix probability:</label>
+                        <input type="text" class="form-control" id="matrixok" value="<?php echo $result[1]?>" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">No error in all matrices:</label>
+                        <input type="text" class="form-control" id="matricesok" value="<?php echo $result[2]?>" disabled>
+                    </div>
+                      <div class="form-group">
+                          <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
+                      </div>
+                  <?php endif; ?>
 
             </div>  
         </div>

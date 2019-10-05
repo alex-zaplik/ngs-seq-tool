@@ -14,7 +14,7 @@ move_not_logged_users($_SESSION);
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 </head>
-<body>
+<body class="hider">
     <div class="container">
         <div class="leftpane">
             <div class="centered">

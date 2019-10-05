@@ -55,3 +55,9 @@ function show_2D_table($title, $data)
 }
 
 
+function swap(&$x, &$y) {
+  $tmp=$x;
+  $x=$y;
+  $y=$tmp;
+}
+
