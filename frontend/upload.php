@@ -16,9 +16,23 @@ move_not_logged_users($_SESSION);
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+<body class="green">
+    <h1 class="upload">File Upload</h1>
     <form class="upload-form" method="post" enctype="multipart/form-data">
-        <input class="upload" type="file" name="files[]" multiple>
+        <input class="upload" type="file" name="files[]" id="file" multiple
+               onchange="javascript:updateList()" />
+        <br/>
+        <div class="upload">
+            Selected files:
+        </div>
+        <div class="upload" id="fileList">
+        </div>
+        <div class="upload">
+        <input id="single" type="radio" name="gender" value="male">Single &nbsp;Indexing
+        </div>
+        <div class="upload">
+            <input type="radio" name="gender" value="female">Double Indexing
+        </div>
         <input class="upload" type="submit" value="Upload File" name="submit">
     </form>
 </body>

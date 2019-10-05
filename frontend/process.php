@@ -2,9 +2,11 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_FILES['files'])) {
-    $errors = [];
     $path = 'uploads/';
     $all_files = count($_FILES['files']['tmp_name']);
+
+    $date = date('m:d:Y-h:i:s_', time());
+    $prefix = $_POST['prefix'];
 
     for ($i = 0; $i < $all_files; $i++) {
       $file_name = $_FILES['files']['name'][$i];
@@ -12,14 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $file_type = $_FILES['files']['type'][$i];
       $file_size = $_FILES['files']['size'][$i];
       $file_ext = strtolower(end(explode('.', $_FILES['files']['name'][$i])));
-      $file = $path . $file_name;
-      if ($file_size > 4097152) {
-        $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
-      }
-      if (empty($errors)) {
-        move_uploaded_file($file_tmp, $file);
-      }
+      $file = $path . $date  . $file_name;
+      move_uploaded_file($file_tmp, $file);
     }
-    if ($errors) print_r($errors);
+
+
   }
 }
