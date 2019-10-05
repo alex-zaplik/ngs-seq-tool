@@ -8,6 +8,6 @@ def readNgsFile(filename, indexes):
             lineList = line.strip().split(" ")
             resultDict = {header[x]:lineList[x] for x in indexes}
             result.append(collections.namedtuple('Result', resultDict.keys())(**resultDict))
-    print(result)
+    return result
 
-readNgsFile("backend/data/indexy_illumina.txt", [2,3])
+print(readNgsFile("backend/data/indexy_illumina.txt", [2,3])[0])
