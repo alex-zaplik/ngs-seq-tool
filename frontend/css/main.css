@@ -1,0 +1,49 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.leftpane {
+    width: 34%;
+    height: 100%;
+    float: left;
+    background-color: #baed91;
+    border-collapse: collapse;
+}
+
+.middlepane {
+    width: 32%;
+    height: 100%;
+    float: left;
+    background-color: #b2cefe;
+    border-collapse: collapse;
+}
+
+.rightpane {
+    width: 34%;
+    height: 100%;
+    position: relative;
+    float: right;
+    background-color: #f8b88b;
+    border-collapse: collapse;
+}
+
+.centered {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.big {
+    font-size: 200px;
+}
+.fas:hover {
+    color: white;
+}
