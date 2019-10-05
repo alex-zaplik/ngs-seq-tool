@@ -30,5 +30,5 @@ def createStructureFromFile(filename, column):
     file = readNgsFile(filename, [column])
     return createStructure(file, 0)
 
-result = createStructureFromFile("backend/data/indexy_illumina.txt", 3)
-print(result[2]["C"])
+# result = createStructureFromFile("backend/data/indexy_illumina.txt", 3)
+# print(result[2]["C"])
