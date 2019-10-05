@@ -33,7 +33,14 @@ def generateCorrectSequences(groups: int, samples: int, length: int):
         # na false zamień na 'A'
         for j in range(length):
             if not checker[j]:
-                last_row = last_row[:j] + 'A' + last_row[min(j+1,length):]
+                s = ''.join(r[j] for r in rows) 
+                if s.__contains__('T'):
+                    letter = 'C'
+                elif s.__contains__('C'):
+                    letter = 'T'
+                else:
+                    letter = 'A'
+                last_row = last_row[:j] + letter + last_row[min(j+1,length):]
         rows += [last_row]
         result += rows
     # przelosuj kolejność
