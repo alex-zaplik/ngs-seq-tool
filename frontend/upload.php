@@ -20,8 +20,8 @@ move_not_logged_users($_SESSION);
 
     <body class="h-100" style="background-color: #baed91;">
 
-        <div style="position: absolute; right:200px; bottom: 200px; transform: rotate(-20deg); color: #8cb36d;" class="h3">
-            thinking out of the box!
+        <div style="position: absolute; top:5vw; right: 0vw" class="h3">
+            <p style="transform: rotate(30deg); color: #8cb36d;">thinking out of the box!</p>
         </div>
 
         <div class="container h-100">

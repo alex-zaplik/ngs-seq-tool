@@ -50,8 +50,8 @@ else{
 
     <body class="h-100" style="background-color: #baed91;">
 
-        <div style="position: absolute; right:200px; bottom: 200px; transform: rotate(-20deg); color: #8cb36d;" class="h3">
-            thinking out of the box!
+        <div style="position: absolute; top:5vw; right: 0vw" class="h3">
+            <p style="transform: rotate(30deg); color: #8cb36d;">thinking out of the box!</p>
         </div>
 
         <div class="container h-100">
@@ -115,12 +115,15 @@ else{
                         <label for="formGroupExampleInput">No error in all matrices:</label>
                         <input type="text" class="form-control" id="matricesok" value="<?php echo floatval($result[2])*100 . "%"?>" disabled>
                     </div>
-                      <div class="form-group">
-                          <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
-                      </div>
-                  <?php endif; ?>
 
-            </div>  
+                    <div class="form-group">
+                        <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
+                    </div>  
+                    
+<?php endif; ?>
+
+                </form>
+            </div> 
         </div>
     </body>
 
