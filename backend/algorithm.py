@@ -58,6 +58,10 @@ class BruteForce(Algorithm):
             if len(groups[-1]) >= self.samples:
                 if not self._checkGroup(groups[-1]):
                     return None
+
+                if len(groups) >= self.runs:
+                    return groups
+
                 groups.append([])
         else:
             groups.append([])
