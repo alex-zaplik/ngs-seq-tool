@@ -51,3 +51,15 @@ form.addEventListener('submit', e => {
 //         output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
 //     }
 // }
+
+$(".custom-file-input").on("change", function() {
+    if (document.getElementById("customFile").files.length == 1) {
+        var fileName = $(this).val().split("\\").pop();
+        console.log($(this).val().split("\\"));
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    } else {
+        text = document.getElementById("customFile").files.length + " files..."
+        console.log(text)
+        $(this).siblings(".custom-file-label").addClass("selected").html(text);
+    }
+    });
