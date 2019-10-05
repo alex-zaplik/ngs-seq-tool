@@ -1,5 +1,0 @@
-def createDataStructure(resultList):
-    resDict = {}
-    for x in range(len(resultList[0])):
-        for x in ['C', 'A', 'T', 'G']:
-            r
