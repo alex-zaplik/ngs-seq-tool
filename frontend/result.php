@@ -18,7 +18,7 @@ move_not_logged_users($_SESSION);
 <body>
 
 <?php
-$fn = fopen("tmp.txt", "r");
+$fn = fopen("generated/tmp.txt", "r");
 $title = "";
 $array = [];
 while (!feof($fn)) {

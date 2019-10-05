@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $i5 = $_POST['i5'];
     $total = "";
 
-    $fp2 = fopen('command.txt', 'w');
+    $fp2 = fopen('generated/command.txt', 'w');
 
     for ($i = 0; $i < $all_files; $i++) {
       //saves the file
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $total = $total ."FILE:\n". $file_name . "\n" . $output;
     }
 
-    $fp = fopen('tmp.txt', 'w');
+    $fp = fopen('generated/tmp.txt', 'w');
     fwrite($fp, $total);
     fclose($fp);
     fclose($fp2);
