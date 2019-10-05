@@ -16,20 +16,20 @@ def readNgsFile(filename, header=None):
         return resultDict
         
 
-def createStructure(resultList, column):
+def createStructure(resultList):
     resDict = {}
-    for position in range(len(resultList[0][column])):
-        print(len(resultList[0][0]))
+
+    if any(len(resultList[0]) != len(x) for x in resultList):
+        raise Exception
+
+    for position in range(len(resultList[0])):
         resDict[position] = {}
         for code in ['C', 'A', 'T', 'G']:
             resDict[position][code] = []
             for ind, val in enumerate(resultList):
-                if val[column][position] == code:
+                if val[position] == code:
                     resDict[position][code].append(ind)
     return resDict
 
-def createStructureFromFile(filename, column):
-    file = readNgsFile(filename, [column])
-    return createStructure(file, 0)
-
-#print(readNgsFile("backend/data/indexy_illumina.txt", ["name", None,  "i7", None, "i5"]))
+resultDataDict = readNgsFile("backend/data/indexy_illumina.txt", ["name", None, "i7", None, "i5"])
+print(createStructure(resultDataDict["i7"])[6])
