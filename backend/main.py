@@ -18,8 +18,15 @@ parser.add_argument('--i5', type=int, help="Column index for i5 indecies (ignore
 args = parser.parse_args()
 
 
+# columns = [None for _ in range(max(args['i7'], args['i5']))]
 # columns = (args['i7'], args['i5']) if args['indexing'] == 'double' else (args['i7'])
 # print(readNgsFile("data/indexy_illumina.txt", columns))
+
+
+for _ in range(6):
+    for _ in range(4):
+        print("D705 ATTTGCCAGT")
+    print()
 
 
 # i7 = cg.generateCorrectSequences(1, 4, 10)
