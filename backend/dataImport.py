@@ -10,7 +10,7 @@ def readNgsFile(filename, header=None):
             header = re.findall(r"[\w']+", clearLine)
         resultDict = {x:[] for x in header if x}
         for line in file:
-            splitLine = re.findall(r"[\w']+", line.strip())
+            splitLine = re.findall(r"[\w']+", line)
             for ind, val in enumerate(splitLine):
                 if ind >= len(header):
                     break
