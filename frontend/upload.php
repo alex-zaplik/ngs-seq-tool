@@ -9,49 +9,80 @@ move_not_logged_users($_SESSION);
 ?>
 
 <!DOCTYPE html>
-<head>
-    <title>Upload Files</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-</head>
+<html class="h-100">
+    <head>
+        <title>Upload Files</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/mainn.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
 
-<body class="green">
-    <h1 class="upload">File Upload</h1>
-    <form class="upload-form" method="post" enctype="multipart/form-data">
-        <input class="upload" type="file" name="files[]" id="file" multiple
-               onchange="javascript:updateList()" />
-        <br/>
-        <div class="upload">
-            Selected files:
+    <body class="h-100"  style="background-color: #baed91;">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <form class="col-4 card" method="post" enctype="multipart/form-data">
+                    <h1 class="my-3">File Upload</h1>
+
+                    <div class="form-group">
+                        <input class="upload" type="file" name="files[]" id="file" multiple
+                            onchange="javascript:updateList()" />
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Runs:</label>
+                        <input type="text" class="form-control" id="runs" placeholder="Example input" value="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Samples:</label>
+                        <input type="text" class="form-control" id="samples" placeholder="Example input" value="6">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">i7 column:</label>
+                        <input type="text" class="form-control" id="i7" placeholder="Example input" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">i5 column:</label>
+                        <input type="text" class="form-control" id="i5" placeholder="Example input" value="1">
+                    </div>      
+
+
+                    <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="buttons" id="single" autocomplete="off" checked> Single Indexing
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="buttons" id="double" autocomplete="off"> Double Indexing
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="upload btn btn-primary btn-block" type="submit" value="Upload File" name="submit">
+                    </div>      
+                    
+
+                </form> 
+            </div>  
         </div>
-        <div class="upload" id="fileList">
+
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class="center-block">
+
+                </div>
+            </div>
         </div>
-        <div class="upload">
-            Runs:
-        </div>
-        <input id= "runs" class="upload" value="4">
-        <div class="upload">
-            Samples:
-        </div>
-        <input id = "samples" class="upload" value="6">
-        <div class="upload">
-            i7 column:
-        </div>
-        <input id = "i7" class="upload" value="0">
-        <div class="upload">
-            i5 column:
-        </div>
-        <input id = "i5" class="upload" value="1">
-        <div class="upload">
-        <input id="single" type="radio">Single &nbsp;Indexing
-        </div>
-        <div class="upload">
-            <input type="radio">Double Indexing
-        </div>
-        <input class="upload" type="submit" value="Upload File" name="submit">
-    </form>
-</body>
+
+    </body>
 
 </html>
 <script src="js/upload.js"></script>
