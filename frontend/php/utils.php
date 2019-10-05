@@ -26,8 +26,13 @@ function move_not_logged_users($SESSION_VARIABLE)
  */
 function show_2D_table($title, $data)
 {
+  if (empty($title))
+  {
+    return;
+  }
 
   echo "<h1>". $title . ":</h1>";
+
   if (empty($data))
   {
     echo "<p>Something went wrong :(</p>";
@@ -38,6 +43,7 @@ function show_2D_table($title, $data)
   echo "<tr>";
   echo "<th>label</th>";
   echo "<th>i5</th>";
+
   if (count($data[0]) > 3)
   {
     echo "<th>label</th>";
@@ -54,6 +60,11 @@ function show_2D_table($title, $data)
   echo "</table>";
 }
 
+/***
+ * Swaps two values
+ * @param $x string first value to swap
+ * @param $y string second value to swap
+ */
 
 function swap(&$x, &$y) {
   $tmp=$x;

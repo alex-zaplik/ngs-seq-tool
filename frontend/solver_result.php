@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
-
 ?>
 
 <html>
@@ -21,15 +20,13 @@ move_not_logged_users($_SESSION);
 $fn = fopen("generated/tmp.txt", "r");
 $title = "";
 $array = [];
+
 while (!feof($fn)) {
   $result = fgets($fn);
   if ($result == "FILE:\n")
   {
-      if ($title != "")
-      {
-        show_2D_table($title, $array);
-        $array = [];
-      }
+      show_2D_table($title, $array);
+      $array = [];
       $title = fgets($fn);
   }
   else if ($result != "\n")

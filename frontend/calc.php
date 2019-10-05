@@ -7,6 +7,15 @@ require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
 
+$index = 2;
+$seq = 2;
+$mat = 2;
+$chan = 2;
+
+$c1 = "active";
+$c2 = "checked";
+$c3 = "";
+$c4 = "";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
   $index = $_POST["index"];
@@ -14,27 +23,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   $mat = $_POST["mat"];
   $chan = $_POST["buttons"];
 
-  $c1 = "active";
-  $c2 = "checked";
-  $c3 = "";
-  $c4 = "";
-
   if ($chan == "4")
   {
     swap($c3, $c1);
     swap($c4, $c2);
   }
-}
-else{
-  $index = 2;
-  $seq = 2;
-  $mat = 2;
-  $chan = 2;
-
-  $c1 = "active";
-  $c2 = "checked";
-  $c3 = "";
-  $c4 = "";
 }
 ?>
 
@@ -60,17 +53,17 @@ else{
                     <h1 class="my-3">Input</h1>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Index length:</label>
-                        <input type="text" name="index" class="form-control" id="indexLength" value="<?php echo $index ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">Sequence length:</label>
+                        <label for="formGroupExampleInput">Index count (rows):</label>
                         <input type="text" name="seq" class="form-control" id="sequence" value="<?php echo $seq ?>">
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Matrix count:</label>
+                        <label for="formGroupExampleInput">Index length (columns):</label>
+                        <input type="text" name="index" class="form-control" id="indexLength" value="<?php echo $index ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Group count:</label>
                         <input type="text" name="mat" class="form-control" id="matrix" value="<?php echo $mat ?>">
                     </div>
 
@@ -94,7 +87,6 @@ else{
                     </div>
 
                   <?php else:
-
                     $command = escapeshellcmd('python3 ../backend/successCalculator.py '
                     . $chan . " " . $index . " " . $seq . " " . $mat);
                     $output = shell_exec($command);
@@ -107,12 +99,12 @@ else{
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">No error in matrix probability:</label>
+                        <label for="formGroupExampleInput">No error in single group probability:</label>
                         <input type="text" class="form-control" id="matrixok" value="<?php echo $result[1]*100 ."%"?>" disabled>
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">No error in all matrices:</label>
+                        <label for="formGroupExampleInput">No error in all groups:</label>
                         <input type="text" class="form-control" id="matricesok" value="<?php echo floatval($result[2])*100 . "%"?>" disabled>
                     </div>
 
@@ -121,7 +113,6 @@ else{
                     </div>  
                     
 <?php endif; ?>
-
                 </form>
             </div> 
         </div>

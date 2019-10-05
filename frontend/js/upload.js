@@ -39,15 +39,15 @@ form.addEventListener('submit', e => {
         body: formData
     }).then(response => {
         console.log(response);
-       window.location.href = "result.php";
+       window.location.href = "solver_result.php";
     });
 });
 
-updateList = function() {
-    var input = document.getElementById('file');
-    var output = document.getElementById('fileList');
+// updateList = function() {
+//     var input = document.getElementById('file');
+//     var output = document.getElementById('fileList');
 
-    for (var i = 0; i < input.files.length; ++i) {
-        output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
-    }
-}
+//     for (var i = 0; i < input.files.length; ++i) {
+//         output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
+//     }
+// }

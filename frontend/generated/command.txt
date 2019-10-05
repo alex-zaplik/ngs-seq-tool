@@ -1,1 +1,1 @@
-python3 ../backend/main.py --path uploads/10:05:2019-09:48:44_index_nextera.txt --indexing single --runs 4 --samples 4 --i5 1 --i7 2
+python3 ../backend/main.py --path uploads/10:05:2019-10:22:46_indexy_illumina.txt --indexing single --runs 4 --samples 4 --i5 1 --i7 2
