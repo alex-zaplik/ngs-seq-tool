@@ -26,13 +26,19 @@ function move_not_logged_users($SESSION_VARIABLE)
  */
 function show_2D_table($title, $data)
 {
-  echo "<h1>". $title . "</h1>";
+
+  echo "<h1>". $title . ":</h1>";
+  if (empty($data))
+  {
+    echo "<p>Something went wrong :(</p>";
+    return;
+  }
 
   echo "<table>";
   echo "<tr>";
   echo "<th>label</th>";
   echo "<th>i5</th>";
-  if (count($data[0]) > 2)
+  if (count($data[0]) > 3)
   {
     echo "<th>label</th>";
     echo "<th>i7</th>";
