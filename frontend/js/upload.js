@@ -13,6 +13,10 @@ form.addEventListener('submit', e => {
     if(document.getElementById('single').checked) {
         prefix = "single";
     }
+    let runs = document.getElementById('runs').value;
+    let samples = document.getElementById('samples').value;
+    let i7Column = document.getElementById('i7').value;
+    let i5Column = document.getElementById('i5').value;
 
     for (let i = 0; i < files.length; i++) {
         let file = files[i];
@@ -20,15 +24,17 @@ form.addEventListener('submit', e => {
         formData.append('files[]',  file);
     }
     formData.append("prefix", prefix);
-    console.log(prefix);
-
+    formData.append("runs", runs);
+    formData.append("samples", samples);
+    formData.append("i7", i7Column);
+    formData.append("i5", i5Column);
 
     fetch(url, {
         method: 'POST',
         body: formData
     }).then(response => {
         console.log(response);
-        window.location.href = "result.php";
+       window.location.href = "result.php";
     });
 });
 

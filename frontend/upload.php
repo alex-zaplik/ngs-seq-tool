@@ -28,10 +28,26 @@ move_not_logged_users($_SESSION);
         <div class="upload" id="fileList">
         </div>
         <div class="upload">
-        <input id="single" type="radio" name="gender" value="male">Single &nbsp;Indexing
+            Runs:
+        </div>
+        <input id= "runs" class="upload" value="4">
+        <div class="upload">
+            Samples:
+        </div>
+        <input id = "samples" class="upload" value="6">
+        <div class="upload">
+            i7 column:
+        </div>
+        <input id = "i7" class="upload" value="0">
+        <div class="upload">
+            i5 column:
+        </div>
+        <input id = "i5" class="upload" value="1">
+        <div class="upload">
+        <input id="single" type="radio">Single &nbsp;Indexing
         </div>
         <div class="upload">
-            <input type="radio" name="gender" value="female">Double Indexing
+            <input type="radio">Double Indexing
         </div>
         <input class="upload" type="submit" value="Upload File" name="submit">
     </form>
