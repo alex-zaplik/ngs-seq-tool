@@ -105,6 +105,8 @@ class OptimizedDouble(DoubleChannel):
                     return bestElements['C'] + bestElements['T']
                 else:
                     return bestElements['C']
+            elif bestElements['T'] is not None:
+                return bestElements['T']
             else:
                 # no solution
                 pass
