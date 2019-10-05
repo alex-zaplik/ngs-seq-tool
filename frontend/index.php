@@ -30,7 +30,7 @@ move_not_logged_users($_SESSION);
         </div>
         <div class="middlepane">
             <div class="centered">
-                <h1>Calculator</h1>
+                <h1>Calculate</h1>
                     <a href="calc.php" class="big">
                         <i class="fas fa-calculator"></i>
                     </a>
