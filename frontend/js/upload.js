@@ -39,7 +39,7 @@ form.addEventListener('submit', e => {
         body: formData
     }).then(response => {
         console.log(response);
-       window.location.href = "result.php";
+       window.location.href = "solver_result.php";
     });
 });
 

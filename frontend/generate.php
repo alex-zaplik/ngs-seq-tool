@@ -6,10 +6,7 @@ error_reporting(E_ALL);
 require_once 'php/utils.php';
 session_start();
 move_not_logged_users($_SESSION);
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html class="h-100">
@@ -29,27 +26,31 @@ move_not_logged_users($_SESSION);
 
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
-                <form class="col-4 card" method="post" enctype="multipart/form-data">
+                <form class="col-4 card" method="post" enctype="multipart/form-data" action="generator_result.php">
                     <h1 class="my-3">Exercise generator</h1>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">Groups:</label>
-                        <input type="text" class="form-control" id="groups">
+                        <input type="text" name="grp" class="form-control" id="groups" value="2">
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Rows:</label>
-                        <input type="text" class="form-control" id="rows">
+                        <label for="formGroupExampleInput">Index count (rows):</label>
+                        <input type="text" name="row" class="form-control" id="rows" value="2">
                     </div>
 
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Columns:</label>
-                        <input type="text" class="form-control" id="columns">
+                        <label for="formGroupExampleInput">Index length (columns):</label>
+                        <input type="text" name="col" class="form-control" id="columns" value="2">
                     </div>
 
                     <div class="form-group">
-                        <input class="upload btn btn-primary btn-block" type="submit" value="Calculate it!" name="submit">
-                    </div>    
+                        <input class="upload btn btn-primary btn-block" type="submit" value="Generate!" name="submit">
+                    </div>
+
+                    <div class="form-group">
+                        <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
+                    </div>
 
                 </form>
             </div>  

@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $i5 = $_POST['i5'];
     $total = "";
 
-    $fp2 = fopen('generated/command.txt', 'w');
+    $commandFile = fopen('generated/command.txt', 'w');
 
     for ($i = 0; $i < $all_files; $i++) {
       //saves the file
@@ -29,17 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //calculates the result
       $command = escapeshellcmd('python3 ../backend/main.py --path '. $file . " --indexing ". $prefix
       . " --runs ". $runs . " --samples " . $samples . " --i5 " . $i5 . " --i7 " . $i7);
-      fwrite($fp2, $command);
-      fwrite($fp2, "\n");
-//      $total = $total . $command . "\n";
+      fwrite($commandFile, $command);
+      fwrite($commandFile, "\n");
+
       $output = shell_exec($command);
       $total = $total ."FILE:\n". $file_name . "\n" . $output;
     }
 
-    $fp = fopen('generated/tmp.txt', 'w');
-    fwrite($fp, $total);
-    fclose($fp);
-    fclose($fp2);
+    $outputFile = fopen('generated/tmp.txt', 'w');
+    fwrite($outputFile, $total);
+    fclose($outputFile);
+    fclose($commandFile);
   }
 }
 
