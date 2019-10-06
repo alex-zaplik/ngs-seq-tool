@@ -1,3 +1,5 @@
+from itertools import permutations
+
 import algorithmChecker as ac
 import random
 
@@ -68,9 +70,40 @@ class DoubleChannel(Algorithm):
             converted.append(txt)
         
         return ac.checkAlgorithm(converted)
+    
+
+class QuadChannel(Algorithm):
+    def _checkGroup(self, group):
+        converted = []
+
+        for sample in group:
+            txt = self.content['i7'][sample[0]]
+            if self.i5 is not None:
+                txt += self.content['i5'][sample[1]]
+            converted.append(txt)
+        
+        return ac.checkAlgorithm_4Channel(converted)
 
 
 class BruteForce(DoubleChannel):
+    def _heuristic(self, left, groups=[]):
+        curr = groups[-1]
+        res = None
+
+        for i in range(len(left)):
+            new_left = left[:]
+            del new_left[i]
+            new_groups = groups[:-1] + [curr + [left[i]]]
+            res = self._group(new_left, new_groups)
+
+            if res is not None:
+                groups = new_groups
+                break
+        
+        return res
+
+
+class QuadForce(QuadChannel):
     def _heuristic(self, left, groups=[]):
         curr = groups[-1]
         res = None
@@ -220,6 +253,34 @@ class OptimizedDouble(DoubleChannel):
         curr = groups[-1]
         res = None
 
+        if 'i5' in self.content and len(curr) == 0 and len(groups) > 1:
+            permutable = groups[-2]
+
+            x = [a[0] for a in permutable]
+            y = [a[1] for a in permutable]
+            perm = list(set(permutations(y)))
+
+            perm_groups = []
+            for p in perm:
+                candidate = list(set(list(zip(x, p))).intersection(set(left)))
+                if len(candidate) == self.samples:
+                    perm_groups.append(candidate)
+                    for c in candidate:
+                        left.remove(c)
+
+
+            del groups[-1]
+            for pg in perm_groups:
+                if len(groups) >= self.samples:
+                    break
+                
+                groups.append(pg)
+            
+            if len(groups) < self.samples:
+                groups.append([])
+            else:
+                return groups
+
         if len(curr) == 0:
             tmp_row_scores = self.row_scores[:]
 
@@ -245,7 +306,10 @@ class OptimizedDouble(DoubleChannel):
             left_most_min = min(self.row_scores[:self.i7_len])
             index = self.row_scores[:self.i7_len].index(left_most_min)
             i7s = self._get_best_elements(left_most_min, index, self.i7)
-            # TODO: Might be None
+            
+            if i7s is None:
+                return None
+
             i7scores = self._score_indecies(i7s, self.content['i7'], self.row_scores)
             i7zipped = list(zip(i7s, i7scores))
 
@@ -255,7 +319,10 @@ class OptimizedDouble(DoubleChannel):
                 left_most_min = min(self.row_scores[self.i7_len:])
                 index = self.row_scores[self.i7_len:].index(left_most_min)
                 i5s = self._get_best_elements(left_most_min, index, self.i5)
-                # TODO: Might be None
+                
+                if i5s is None:
+                    return None
+
                 i5scores = self._score_indecies(i5s, self.content['i5'], self.row_scores)
                 i5zipped = list(zip(i5s, i5scores))
                 i7i5summed = [(i[0], j[0], i[1]+j[1]) for i in i7zipped for j in i5zipped]
@@ -286,39 +353,5 @@ class OptimizedDouble(DoubleChannel):
                     break
                 else:
                     self.row_scores = tmp_row_scores[:]
-                    # if len(curr) > 0:
-                    #     print(curr)
-                    #     print(left)
-                    #     print(groups)
-                    #     print()
-                    #     left.remove(curr[0])
         
         return res
-
-
-    def _heuristic_old(self, left, groups=[]):
-        # Initialize row scores
-        row_scores = [0 for _ in range(self.i7_len + self.i5_len)]
-
-        for i in range(self.samples):
-            # Pick the leftmost minimum
-            leftMostMin = min(row_scores)
-            index = row_scores.index(leftMostMin)
-            i7s = self._get_best_elements(leftMostMin, index, self.i7)
-            # TODO: Might be None
-            i7scores = self._score_indecies(i7s, self.content['i7'], row_scores)
-            i7zipped = list(zip(i7s, i7scores))
-            
-            # print(row_scores)
-            # for z in i7zipped:
-            #     print(self.content['i7'][z[0]], z[1])
-
-            if self.i5 is not None:
-                i5s = self._get_best_elements(leftMostMin, index, self.i5)
-                # TODO: Might be None
-                i5scores = self._score_indecies(i5s, self.content['i5'], row_scores)
-                # print(i5s)
-
-            break
-
-        return None
