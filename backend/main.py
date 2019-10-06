@@ -49,17 +49,23 @@ i5 = createStructure(content[I5]) if args.indexing == DOUBLE else None
 optim = alg.OptimizedDouble(args.runs, args.samples, content, i7, i5=i5)
 res = optim.group()
 
+# res = None
 if res is None:
+    print("Dropping to BruteForce")
     i7 = content[I7]
     i5 = content[I5] if args.indexing == DOUBLE else None
 
-    a = alg.BruteForce(args.runs, args.samples, i7, i5=i5)
+    a = alg.BruteForce(args.runs, args.samples, content, i7, i5=i5)
     res = a.group()
 
-for r in res:
-    for s in r:
-        cols = [I7, I5]
-        for index in range(len(s)):
-            print(content[NAME][s[index]], content[cols[index]][s[index]], end=" ")
+if res is not None:
+    for r in res:
+        for s in r:
+            cols = [I7, I5]
+            for index in range(len(s)):
+                print(content[NAME][s[index]], content[cols[index]][s[index]], end=" ")
+            print()
         print()
-    print()
+else:
+    # TODO: Error
+    pass
