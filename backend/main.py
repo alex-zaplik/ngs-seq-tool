@@ -2,7 +2,7 @@ import algorithm as alg
 import argparse
 import customGenerator as cg
 
-from algorithmChecker import checkAlgorithm
+from algorithmChecker import checkAlgorithm, checkAlgorithm_4Channel
 from dataImport import readNgsFile, createStructure
 
 
@@ -67,7 +67,30 @@ else:
         a = alg.BruteForce(args.runs, args.samples, content, i7, i5=i5)
         res = a.group()
 
+
+def check_group(content, group, test):
+    converted = []
+
+    for sample in group:
+        txt = content['i7'][sample[0]]
+        if 'i5' in content:
+            txt += content['i5'][sample[1]]
+        converted.append(txt)
+    
+    return test(converted)
+
+
 if res is not None:
+    # Check that all groups are correct
+    for i, group in enumerate(res):
+        if not check_group(content, group, checkAlgorithm_4Channel if args.quad else checkAlgorithm):
+            print("Group %d is incorrect" % (i))
+    
+    # Check for no repeats
+    flat_list = [i for sl in res for i in sl]
+    if len(flat_list) != len(list(set(flat_list))):
+        print("Unexpected repeats were detected")
+    
     for r in res:
         for s in r:
             cols = [I7, I5]
@@ -76,5 +99,4 @@ if res is not None:
             print()
         print()
 else:
-    # TODO: Error
-    pass
+    print("Unable to group indecies")

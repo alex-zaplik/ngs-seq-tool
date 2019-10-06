@@ -306,7 +306,10 @@ class OptimizedDouble(DoubleChannel):
             left_most_min = min(self.row_scores[:self.i7_len])
             index = self.row_scores[:self.i7_len].index(left_most_min)
             i7s = self._get_best_elements(left_most_min, index, self.i7)
-            # TODO: Might be None
+            
+            if i7s is None:
+                return None
+
             i7scores = self._score_indecies(i7s, self.content['i7'], self.row_scores)
             i7zipped = list(zip(i7s, i7scores))
 
@@ -316,7 +319,10 @@ class OptimizedDouble(DoubleChannel):
                 left_most_min = min(self.row_scores[self.i7_len:])
                 index = self.row_scores[self.i7_len:].index(left_most_min)
                 i5s = self._get_best_elements(left_most_min, index, self.i5)
-                # TODO: Might be None
+                
+                if i5s is None:
+                    return None
+
                 i5scores = self._score_indecies(i5s, self.content['i5'], self.row_scores)
                 i5zipped = list(zip(i5s, i5scores))
                 i7i5summed = [(i[0], j[0], i[1]+j[1]) for i in i7zipped for j in i5zipped]
