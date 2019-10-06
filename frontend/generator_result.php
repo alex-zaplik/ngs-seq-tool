@@ -36,16 +36,16 @@ $result = explode("\n", $output);
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-4 card">
                   <h1 class="my-3">Results</h1>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <a href="./" class="btn btn-secondary btn-block">Back to the homepage</a>
-                  </div>
+                  </div> -->
                   <ul class="list-group">
 
 <?php
 //display result.
 //TODO: convert to 2D array
 echo "<li class='list-group-item py-2 active'>".$result[0]."</li>";
-for ($i = 1; $i < count($result); $i++)
+for ($i = 1; $i < count($result)-1; $i++)
 {
   echo "<li class='list-group-item py-2'>".$result[$i]."</li>";
 }

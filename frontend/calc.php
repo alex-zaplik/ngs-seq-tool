@@ -70,10 +70,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
                     <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary <?php echo $c1 ?>">
+                        <label class="btn btn-light <?php echo $c1 ?>">
                             <input type="radio" name="buttons" id="double" value="2" autocomplete="off" <?php echo $c2 ?>>2 channel
                         </label>
-                        <label class="btn btn-secondary <?php echo $c3 ?>">
+                        <label class="btn btn-light <?php echo $c3 ?>">
                             <input type="radio" name="buttons" id="quad" value="4" autocomplete="off" <?php echo $c4 ?>>4 channel
                         </label>
                     </div>
