@@ -23,12 +23,12 @@ move_not_logged_users($_SESSION);
 <body class="h-100" style="background-color: #baed91;">
   <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
-      <div class="col-12 card p-3">
+      <div class="card p-3 col-12">
         <div class="page-header">
           <h1 class="text-center">Results</h1>
         </div>
         <hr>
-        <div class="row">
+        <div class="row container-fluid justify-content-center">
 
 <?php
 //display last results present in generated/tmp.txt

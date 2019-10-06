@@ -31,7 +31,7 @@ function show_2D_table($title, $data)
     return;
   }
 
-  echo "<div class='col-12 col-sm-6 col-lg-4'><p class='h4'>". $title . ":</p>";
+  echo "<div class='m-4'><p class='h4'>". $title . ":</p>";
 
   if (empty($data))
   {
@@ -39,7 +39,7 @@ function show_2D_table($title, $data)
     return;
   }
 
-  echo "<table class='table table-sm'>";
+  echo "<table class='table table-responsive table-sm'>";
   echo "<tr>";
   echo "<th scope='col'>label</th>";
   echo "<th scope='col'>i5</th>";
