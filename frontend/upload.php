@@ -28,44 +28,44 @@ move_not_logged_users($_SESSION);
 
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
-                <form class="col-4 card" method="post" enctype="multipart/form-data">
+                <form class="col-4 card" method="post" enctype="multipart/form-data" action="process.php">
                     <h1 class="my-3">File uploader</h1>
 
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" multiple>
+                            <input name="files[]" type="file" class="custom-file-input" id="customFile" multiple>
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="formGroupExampleInput">Runs:</label>
-                        <input type="text" class="form-control" id="runs" value="4" required>
+                        <input type="text" name="runs" class="form-control" id="runs" value="4" required>
                     </div>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">Samples:</label>
-                        <input type="text" class="form-control" id="samples" value="4">
+                        <input type="text" name="samples"class="form-control" id="samples" value="4">
                     </div>
 
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">i7 column:</label>
-                        <input type="text" class="form-control" id="i7" value="2">
+                        <input type="text" name="i7" class="form-control" id="i7" value="2">
                     </div>
 
                     <div class="form-group">
                         <label for="formGroupExampleInput">i5 column:</label>
-                        <input type="text" class="form-control" id="i5" value="1">
+                        <input type="text" name="i5" class="form-control" id="i5" value="1">
                     </div>      
 
 
                     <div class="form-group btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-secondary active">
-                            <input type="radio" name="buttons" id="single" autocomplete="off" checked> Single Indexing
+                            <input type="radio" name="buttons" value="single" id="single" autocomplete="off" checked> Single Indexing
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="buttons" id="double" autocomplete="off"> Double Indexing
+                            <input type="radio" name="buttons" value="double" id="double" autocomplete="off"> Double Indexing
                         </label>
                     </div>
 

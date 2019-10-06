@@ -1,4 +1,1 @@
-
-python3 ../backend/main.py --path uploads/indexy_nextera.txt --indexing double --runs 4 --samples 4 --i5 2 --i7 1
-python3 ../backend/main.py --path uploads/indexy_illumina.txt --indexing double --runs 4 --samples 4 --i5 3 --i7 2
-python3 ../backend/main.py --path uploads/indexy_vazyme.txt --indexing single --runs 4 --samples 4 --i7 1
+python3 ../backend/main.py --path uploads/10:06:2019-08:12:02_indexy_vazyme.txt --indexing single --runs 4 --samples 4 --i5 1 --i7 1
