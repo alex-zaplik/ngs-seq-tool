@@ -1,9 +1,10 @@
 import algorithmChecker as ac
+import random
 
 
 class Algorithm:
     def __init__(self, runs, samples, content, i7, i5=None):
-        if i5 not in content:
+        if 'i5' not in content:
             self.indecies = [(i, ) for i in range(len(content['i7']))]
         else:
             self.indecies = [(i, j) for i in range(len(content['i7'])) for j in range(len(content['i5']))]
@@ -91,6 +92,7 @@ class OptimizedDouble(DoubleChannel):
     def __init__(self, runs, samples, content, i7, i5=None):
         super().__init__(runs, samples, content, i7, i5)
 
+        self.test123 = None
         self.i7_len = len(content['i7'][0])
         self.i5_len = len(content['i5'][0]) if 'i5' in content else 0
 
@@ -99,7 +101,8 @@ class OptimizedDouble(DoubleChannel):
         self.row_scores = [0 for _ in range(self.i7_len + self.i5_len)]
     
     
-    def _get_best_elements(self, leftMostMin, index, structure):    
+    def _get_best_elements(self, leftMostMin, index, structure):
+        # print(structure)
         bestElements = structure[index]
 
         if leftMostMin == 0:
@@ -217,36 +220,14 @@ class OptimizedDouble(DoubleChannel):
         curr = groups[-1]
         res = None
 
-        # Pick the leftmost minimum
-        left_most_min = min(self.row_scores)
-        index = self.row_scores.index(left_most_min)
-        i7s = self._get_best_elements(left_most_min, index, self.i7)
-        # TODO: Might be None
-        i7scores = self._score_indecies(i7s, self.content['i7'], self.row_scores)
-        i7zipped = list(zip(i7s, i7scores))
+        if len(curr) == 0:
+            tmp_row_scores = self.row_scores[:]
 
-        if self.i5 is None:
-            rank = [(x[0], ) for x in sorted(i7zipped, key=lambda x: x[1], reverse=True)]
-        else:
-            i5s = self._get_best_elements(left_most_min, index, self.i5)
-            # TODO: Might be None
-            i5scores = self._score_indecies(i5s, self.content['i5'], self.row_scores)
-            i5zipped = list(zip(i5s, i5scores))
-            i7i5summed = [(i[0], j[0], i[1]+j[1]) for i in i7zipped for j in i5zipped]
-            rank = [(x[0], x[1]) for x in sorted(i7i5summed, key=lambda x: x[2], reverse=True)]
-
-        # Pick available indecies from 'left'
-        available = [a for a in rank if a in left]
-        # print(groups)
-
-        tmp_row_scores = self.row_scores[:]
-        # print(groups)
-
-        for a in available:
+            a = random.choice(left)
             new_left = left[:]
             new_left.remove(a)
 
-            # TODO: Calculate new row scores
+            # Calculate new row scores
             new_scores = self._calc_index_score(a)
             # print(self.row_scores, "+", new_scores, "=", end=" ")
             self.row_scores = [self.row_scores[i] | new_scores[i] for i in range(len(self.row_scores))]
@@ -257,15 +238,60 @@ class OptimizedDouble(DoubleChannel):
 
             if res is not None:
                 groups = new_groups
-                break
             else:
                 self.row_scores = tmp_row_scores[:]
-                # if len(curr) > 0:
-                #     print(curr)
-                #     print(left)
-                #     print(groups)
-                #     print()
-                #     left.remove(curr[0])
+        else:
+            # Pick the leftmost minimum
+            left_most_min = min(self.row_scores[:self.i7_len])
+            index = self.row_scores[:self.i7_len].index(left_most_min)
+            i7s = self._get_best_elements(left_most_min, index, self.i7)
+            # TODO: Might be None
+            i7scores = self._score_indecies(i7s, self.content['i7'], self.row_scores)
+            i7zipped = list(zip(i7s, i7scores))
+
+            if self.i5 is None:
+                rank = [(x[0], ) for x in sorted(i7zipped, key=lambda x: x[1], reverse=True)]
+            else:
+                left_most_min = min(self.row_scores[self.i7_len:])
+                index = self.row_scores[self.i7_len:].index(left_most_min)
+                i5s = self._get_best_elements(left_most_min, index, self.i5)
+                # TODO: Might be None
+                i5scores = self._score_indecies(i5s, self.content['i5'], self.row_scores)
+                i5zipped = list(zip(i5s, i5scores))
+                i7i5summed = [(i[0], j[0], i[1]+j[1]) for i in i7zipped for j in i5zipped]
+                rank = [(x[0], x[1]) for x in sorted(i7i5summed, key=lambda x: x[2], reverse=True)]
+
+            # Pick available indecies from 'left'
+            available = [a for a in rank if a in left]
+            # print(groups)
+
+            tmp_row_scores = self.row_scores[:]
+            # print(groups)
+
+            for a in available:
+                new_left = left[:]
+                new_left.remove(a)
+
+                # Calculate new row scores
+                new_scores = self._calc_index_score(a)
+                # print(self.row_scores, "+", new_scores, "=", end=" ")
+                self.row_scores = [self.row_scores[i] | new_scores[i] for i in range(len(self.row_scores))]
+                # print(self.row_scores)
+                
+                new_groups = groups[:-1] + [curr + [a]]
+                res = self._group(new_left, new_groups)
+
+                if res is not None:
+                    groups = new_groups
+                    break
+                else:
+                    self.row_scores = tmp_row_scores[:]
+                    # if len(curr) > 0:
+                    #     print(curr)
+                    #     print(left)
+                    #     print(groups)
+                    #     print()
+                    #     left.remove(curr[0])
         
         return res
 
@@ -283,15 +309,15 @@ class OptimizedDouble(DoubleChannel):
             i7scores = self._score_indecies(i7s, self.content['i7'], row_scores)
             i7zipped = list(zip(i7s, i7scores))
             
-            print(row_scores)
-            for z in i7zipped:
-                print(self.content['i7'][z[0]], z[1])
+            # print(row_scores)
+            # for z in i7zipped:
+            #     print(self.content['i7'][z[0]], z[1])
 
             if self.i5 is not None:
                 i5s = self._get_best_elements(leftMostMin, index, self.i5)
                 # TODO: Might be None
                 i5scores = self._score_indecies(i5s, self.content['i5'], row_scores)
-                print(i5s)
+                # print(i5s)
 
             break
 
