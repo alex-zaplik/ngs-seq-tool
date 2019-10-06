@@ -28,6 +28,7 @@ parser.add_argument('--runs', type=int, help="The number of sequencing runs")
 parser.add_argument('--samples', type=int, help="The number of DNA samples per run")
 parser.add_argument('--i7', type=int, help="Column index for i7 indecies")
 parser.add_argument('--i5', type=int, help="Column index for i5 indecies (ignored if indexing is set to 'single')")
+parser.add_argument('--quad', action="store_true", help="Use experimental quad channel imaging")
 
 args = parser.parse_args()
 
@@ -43,20 +44,28 @@ else:
     columns[args.i7] = I7
 
 content = readNgsFile(args.path, columns)
-i7 = createStructure(content[I7])
-i5 = createStructure(content[I5]) if args.indexing == DOUBLE else None
 
-optim = alg.OptimizedDouble(args.runs, args.samples, content, i7, i5=i5)
-res = optim.group()
-
-# res = None
-if res is None:
-    print("Dropping to BruteForce")
+if args.quad:
     i7 = content[I7]
     i5 = content[I5] if args.indexing == DOUBLE else None
 
-    a = alg.BruteForce(args.runs, args.samples, content, i7, i5=i5)
+    a = alg.QuadForce(args.runs, args.samples, content, i7, i5=i5)
     res = a.group()
+else:
+    i7 = createStructure(content[I7])
+    i5 = createStructure(content[I5]) if args.indexing == DOUBLE else None
+
+    optim = alg.OptimizedDouble(args.runs, args.samples, content, i7, i5=i5)
+    res = optim.group()
+
+    # res = None
+    if res is None:
+        print("Dropping to BruteForce")
+        i7 = content[I7]
+        i5 = content[I5] if args.indexing == DOUBLE else None
+
+        a = alg.BruteForce(args.runs, args.samples, content, i7, i5=i5)
+        res = a.group()
 
 if res is not None:
     for r in res:
