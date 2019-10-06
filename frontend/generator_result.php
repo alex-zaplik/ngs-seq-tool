@@ -29,7 +29,7 @@ $result = explode("\n", $output);
     <body class="h-100" style="background-color: #f8b88b;">
 
         <div style="position: absolute; top:5vw; right: 0vw" class="h3">
-            <p style="transform: rotate(30deg); color: #8aa0ce;">thinking out of the box!</p>
+            <p style="transform: rotate(30deg); color: #b28059;">thinking out of the box!</p>
         </div>
 
         <div class="container h-100">
