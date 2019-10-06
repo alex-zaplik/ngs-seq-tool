@@ -81,7 +81,10 @@ while (!feof($fn)) {
 show_2D_table($title, $array);
 fclose($fn);
 ?>  
-          <div>
+          </div>
+          <div class="text-center">
+            <a href="./" class="btn btn-secondary">Back to the homepage</a>
+          </div>
         <div>
     </div>
   </div>
